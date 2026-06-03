@@ -194,3 +194,10 @@ dev/**__pycache__/
 data/
 output/
 .vscode/
+artifacts/*.tar.gz
+artifacts/*.tar.bz2
+artifacts/*.zip
+results/
+*.pt
+*.bin
+*.safetensors

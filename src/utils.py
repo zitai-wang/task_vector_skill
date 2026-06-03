@@ -7,7 +7,10 @@ import peft
 from peft import PeftModel, LoraConfig, PrefixTuningConfig
 from omegaconf import DictConfig, OmegaConf
 from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig,AutoProcessor
-from internvl_model_wrapper import InternVLModelWrapper
+try:
+    from internvl_model_wrapper import InternVLModelWrapper
+except ModuleNotFoundError:
+    InternVLModelWrapper = None
 try:
     from llava_ov_model_wrapper import LlavaOVModelWrapper
 except ModuleNotFoundError:
@@ -21,6 +24,23 @@ import paths
 # from testbed.models import Idefics, Idefics2
 
 OmegaConf.register_new_resolver("eval", eval, replace=True)
+
+
+def _normalize_env_key(name: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in name.upper())
+
+
+def _model_root_override(model_name: str) -> str | None:
+    return os.environ.get(f"COT_MIMIC_MODEL_ROOT_{_normalize_env_key(model_name)}")
+
+
+def _pick_existing_path(candidates, validator=None):
+    for candidate in candidates:
+        if not candidate or not os.path.exists(candidate):
+            continue
+        if validator is None or validator(candidate):
+            return candidate
+    return candidates[0]
 
 
 class NullPeftModel(nn.Module):
@@ -79,12 +99,26 @@ class ModuleDeviceManager:
 
 
 def get_runtime_device():
+    device = torch.device("cuda:0")
+    visible = os.environ.get("CUDA_VISIBLE_DEVICES")
     if not torch.cuda.is_available():
+        if visible not in (None, "", "-1"):
+            try:
+                torch.empty(1, device=device)
+                gpu_name = torch.cuda.get_device_name(device)
+                print(
+                    f"Running on GPU via fallback probe: {gpu_name} "
+                    f"(CUDA_VISIBLE_DEVICES={visible}, using logical cuda:0)"
+                )
+                return device
+            except Exception as exc:
+                print(
+                    "CUDA requested but unavailable after fallback probe; "
+                    f"falling back to CPU. reason={exc}"
+                )
         print("Running on CPU.")
         return torch.device("cpu")
 
-    device = torch.device("cuda:0")
-    visible = os.environ.get("CUDA_VISIBLE_DEVICES")
     gpu_name = torch.cuda.get_device_name(device)
     if visible:
         print(
@@ -113,14 +147,6 @@ def convert_to_peft(cfg, lmm):
 
 
 def build_qwen_model_info(cfg):
-    def pick_existing_path(candidates, validator=None):
-        for candidate in candidates:
-            if not candidate or not os.path.exists(candidate):
-                continue
-            if validator is None or validator(candidate):
-                return candidate
-        return candidates[0]
-
     def qwen_vl_checkpoint_usable(candidate):
         shard_path = os.path.join(candidate, "model-00002-of-00005.safetensors")
         if not os.path.exists(shard_path):
@@ -136,7 +162,8 @@ def build_qwen_model_info(cfg):
     qwen_models = {
         "qwen2.5-math-7b-instruct": (
             "Qwen/Qwen2.5-Math-7B-Instruct",
-            pick_existing_path([
+            _pick_existing_path([
+                _model_root_override("qwen2.5-math-7b-instruct"),
                 "/home/share/model_weight/qwen/Qwen2.5-Math-7B-Instruct/",
                 "/data/share/model_weight/qwen/Qwen2.5-Math-7B-Instruct/",
             ]),
@@ -145,7 +172,8 @@ def build_qwen_model_info(cfg):
         ),
         "qwen2.5-math-7b": (
             "Qwen/Qwen2.5-Math-7B",
-            pick_existing_path([
+            _pick_existing_path([
+                _model_root_override("qwen2.5-math-7b"),
                 "/home/share/model_weight/qwen/Qwen2.5-Math-7B/",
                 "/data/share/model_weight/qwen/Qwen2.5-Math-7B/",
             ]),
@@ -155,21 +183,24 @@ def build_qwen_model_info(cfg):
         # Add other Qwen models here as needed
         "qwen2.5-7b": (
             "Qwen/Qwen2.5-7B",
-            pick_existing_path([
+            _pick_existing_path([
+                _model_root_override("qwen2.5-7b"),
                 "/home/share/model_weight/qwen/Qwen2.5-7B/",
                 "/data/share/model_weight/qwen/Qwen2.5-7B/",
             ]),
         ),
         "qwen2.5-7b-instruct": (
             "Qwen/Qwen2.5-7B-Instruct",
-            pick_existing_path([
+            _pick_existing_path([
+                _model_root_override("qwen2.5-7b-instruct"),
                 "/home/share/model_weight/qwen/Qwen2.5-7B-Instruct/",
                 "/data/share/model_weight/qwen/Qwen2.5-7B-Instruct/",
             ]),
         ),
         "qwen2.5-vl-7b-instruct": (
             "Qwen/Qwen2.5-VL-7B-Instruct",
-            pick_existing_path([
+            _pick_existing_path([
+                _model_root_override("qwen2.5-vl-7b-instruct"),
                 "/home/dhz/Model/Qwen2.5-VL-7B-Instruct/",
                 "/home/lrz/model_weight/Qwen2.5-VL-7B-Instruct/",
                 "/home/share/Qwen2.5-VL-7B-Instruct/",
@@ -192,15 +223,25 @@ def build_llama_model_info(cfg):
     llama_models = {
         "llama-3.1-8b-instruct": (
             "meta-llama/Meta-Llama-3.1-8B-Instruct",
-            "/data/share/model_weight/llama/llama-3.1-8b-instruct/",
+            _pick_existing_path([
+                _model_root_override("llama-3.1-8b-instruct"),
+                "/data/share/model_weight/llama/llama-3.1-8b-instruct/",
+            ]),
         ),
         "llama-3.1-70b-instruct": (
             "meta-llama/Meta-Llama-3.1-70B-Instruct",
-            "/data/share/model_weight/llama/llama-3.1-70b-instruct/",
+            _pick_existing_path([
+                _model_root_override("llama-3.1-70b-instruct"),
+                "/data/share/model_weight/llama/llama-3.1-70b-instruct/",
+            ]),
         ),
         "llama3-8b": (
             "meta-llama/Meta-Llama-3-8B", 
-            "/data/share/model_weight/llama/llama-3.1-8b-instruct/", 
+            _pick_existing_path([
+                _model_root_override("llama3-8b"),
+                _model_root_override("llama-3.1-8b-instruct"),
+                "/data/share/model_weight/llama/llama-3.1-8b-instruct/",
+            ]), 
         ),
         # Add other LLaMA models here as needed  
     }
@@ -222,7 +263,10 @@ def build_internlm_model_info(cfg):
     internlm_models = {
         "internlm2_5-7b-chat": (
             "internlm/internlm2_5-7b-chat",
-            "/data/share/internlm2_5-7b-chat/",
+            _pick_existing_path([
+                _model_root_override("internlm2_5-7b-chat"),
+                "/data/share/internlm2_5-7b-chat/",
+            ]),
         ),
     }
     model_name = cfg.model_name.lower()
@@ -240,7 +284,10 @@ def build_internvl_model_info(cfg):
     internvl_models = {
         "internvl2_5-8b": (
             "OpenGVLab/InternVL2_5-8B",
-            "/data/share/InternVL2_5-8B",
+            _pick_existing_path([
+                _model_root_override("internvl2_5-8b"),
+                "/data/share/InternVL2_5-8B",
+            ]),
         ),
     }
     model_name = cfg.model_name.lower()
@@ -257,7 +304,10 @@ def build_llava_model_info(cfg):
     llava_models={
         "llava-onevision-1.5-8b": (
             "lmms-lab/LLaVA-OneVision-1.5-8B-Instruct",
-            "/data/share/LLaVA-OneVision-1.5-8B-Instruct/", # 3090路径
+            _pick_existing_path([
+                _model_root_override("llava-onevision-1.5-8b"),
+                "/data/share/LLaVA-OneVision-1.5-8B-Instruct/",
+            ]),
         ),
     }
     model_name = cfg.model_name.lower()
@@ -273,7 +323,10 @@ def build_idefics3_model_info(cfg):
     idefics3_models = {
         "idefics3-8b-llama3": (
             "HuggingFaceM4/Idefics3-8B-Llama3",
-            "/data/share/Idefics3-8B-Llama3/",
+            _pick_existing_path([
+                _model_root_override("idefics3-8b-llama3"),
+                "/data/share/Idefics3-8B-Llama3/",
+            ]),
         ),
     }
     model_name = cfg.model_name.lower()

@@ -1,69 +1,220 @@
-<h1 align="center">Mimic In-Context Learning for Multimodal Tasks</h1>
+# Task vector skill
 
-<p align="center">
-<a href="https://arxiv.com/abs/2504.08851">
-<img alt="Static Badge" src="https://img.shields.io/badge/arXiv-2504.08851-red"></a>
-</p>
+`Task vector skill` is a research codebase for static Chain-of-Thought transfer and evaluation.
 
-<img src="./assets/overview.png" alt="overview figure" style="display: block; margin: 0 auto; width: 90%;" />
+The current default workflow in this repo is:
 
+- use a source LLM to generate self-CoT
+- extract static CoT vectors from correct samples
+- inject those vectors back into the same or another LLM
+- evaluate `baseline`, `base`, `ffn`, or `attn` behavior
 
-**Mimic In-Context Learning (MimIC)** is a novel framework to adapt vision language models by approximating shift effects from in-context demonstrations. By integrating lightweight learnable modules int models, it demonstrates superior performance compared to previous shift-vector methods and LoRA.
+The most stable path in this repo today is the unimodal Qwen pipeline:
 
-## Setup
-### 1. Create environment
-The following command can help you build the environment for testing idefics1 and idefics2.
+- model: `qwen2.5-7b-instruct`
+- datasets: `gsm8k`, `commonsenseqa`, `strategyqa`
+- workflow: `baseline -> generate -> extract -> eval`
+
+This repo also contains earlier multimodal and training-oriented code, but the shared demo path we currently recommend is the static pipeline above.
+
+## What This Repo Supports
+
+Core capabilities:
+
+- self-CoT generation with [src/generate_self_cot.py](/data1/wzy/cot-mimic%20copy/src/generate_self_cot.py)
+- static vector extraction with [src/extract_cot_vector.py](/data1/wzy/cot-mimic%20copy/src/extract_cot_vector.py)
+- baseline evaluation with [src/eval_baseline.py](/data1/wzy/cot-mimic%20copy/src/eval_baseline.py)
+- base-vector evaluation with [src/eval_base.py](/data1/wzy/cot-mimic%20copy/src/eval_base.py)
+- FFN / LIVE-style evaluation with [src/eval_licv.py](/data1/wzy/cot-mimic%20copy/src/eval_licv.py)
+- attention / MimIC evaluation with [src/eval_mimic.py](/data1/wzy/cot-mimic%20copy/src/eval_mimic.py)
+- end-to-end automation with [scripts/run_static_pipeline.py](/data1/wzy/cot-mimic%20copy/scripts/run_static_pipeline.py)
+- layerwise sweeps with [scripts/run_eval_layers_base.py](/data1/wzy/cot-mimic%20copy/scripts/run_eval_layers_base.py), [scripts/run_eval_layers_licv.py](/data1/wzy/cot-mimic%20copy/scripts/run_eval_layers_licv.py), and [scripts/run_eval_layers_mimic.py](/data1/wzy/cot-mimic%20copy/scripts/run_eval_layers_mimic.py)
+
+## Recommended Environment
+
+The shared environment file is [environment.yml](/data1/wzy/cot-mimic%20copy/environment.yml).
+It creates an environment named `licv`.
+
 ```bash
-conda create -y -n mimic python=3.10
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate licv
 ```
-### 2. Specify the root path of your models and datasets in `src/paths.py`
-For models, we currently support idefics1, idefics2 and llava-next-interleave. For datasets, VQAv2, OK-VQA, COCO, flickr30k, MME and SEED-bench are available.
 
-## How to Run
+Important:
+
+- this should produce a compatible environment, not a byte-for-byte clone of the author's machine
+- CUDA, driver, OS, and local model installation still matter
+- if you need a closer machine snapshot, you can distribute a `conda-pack` archive in addition to `environment.yml`
+
+### Using the Packed `licv` Environment
+
+If `artifacts/licv-conda-pack.tar.gz` has already been generated, it is a packed snapshot of the `licv` Conda environment.
+
+It is not used by opening the archive directly. Instead, unpack it into a target directory and activate it from there:
+
 ```bash
-cd ./script
-# select a bash file to run
-bash run_*.sh 
+mkdir -p /path/to/licv
+tar -xzf artifacts/licv-conda-pack.tar.gz -C /path/to/licv
+source /path/to/licv/bin/activate
+conda-unpack
 ```
 
-## Code Reading Guides
-We would like to introduce some key files to help you understand how MimIC works.
-### [`shift_encoder.py`](./src/shift_encoder.py)
-In this file, we implemented MimIC attention heads (`AttnApproximator`) and another vector-based method -- [LIVE](https://arxiv.org/pdf/2406.13185) (`AttnFFNShift`).
+After that, verify the environment:
 
-As we mentioned in paper, self-attention layers are substituted by MimIC attention heads. Such an integration is achieved by replacing `forward` of those self-attention layers in models (see `*_attn_forward` and `register_shift_hooks`). For example, as you can see `idefics_attn_forward`, we do a shift on regular attention output base on key and query of idefics.
-
-In `do_shift` of `AttnApproximator`, we implemented $f(\cdot)$ and $\boldsymbol{v}$ to approximate in-context demonstrations affected terms (Section 3.2).
-
-### [`shift_model.py`](./src/shift_model.py)
-In this file, we implemented training framework of MimIC, as illustrated in Figure 3. `ShiftModel` feeds contexts prepared from `data_module.py` to the model and calculate losses depends on `model_strategy`. The `model_strategy` describes which types of losses should be calculated. For exmaple, MimIC uses `Strategy.LAYER_WISE_MSE` and `Strategy.LM_LOSS`, which stand for $L_{\text{align}}$ and $L_{\text{gt}}$ (Eq. 6), respectively. To train LIVE, `Strategy.LOGITS_KL_DIV` and `Strategy.LM_LOSS` are used. As to LoRA, only `Strategy.LM_LOSS` should be applied.
-
-We firstly feed in-context demonstrations and query to model to capture hidden states $H^\prime$  from all layers. This is achieved by [`forward_hook`](https://pytorch.org/docs/stable/generated/torch.nn.modules.module.register_module_forward_hook.html), please see `register_record_hook` in `shift_encoder.py` for details. Then, we enable `shift_hook` (introduced in previous section) only feed query to model to obtain shifted hidden states $H$. Finally, layer-wise alignment loss is computed with these hidden states.
-
-## Customization
-### Customize new datasets
-0. You may need to add your dataset path to `src/paths.py` firstly.
-1. Create a new python script in `src/dataset_utils`.
-2. Create a new class named `Dataset` and inherits from `src.dataset_utils.iterface.DatasetBase`.
-3. Implement all abstract methods and some special required attributes (see docstring of `DatasetBase`).
-
-Then you are able to use `-d` option to specify new dataset in `run_*` bash scripts.
-
-### Customize new model
-This could be a kinda complicate.
-0. You may need to add your model path to `src/paths.py` firstly.
-1. Create your new model in `testbed/models`, following ICLTestbed guides [here](https://github.com/Kamichanw/ICLTestbed/blob/main/docs/How-to%20guides.md).
-2. Specify the method of loading the model in `build_models` from `src/utils.py`.
-3. Global search `idefics` in `shift_model.py` and implement corresponding methods.
-4. Determine how many epochs to run and when to save in `src/train.py`.
-
-# Recommended Citation
+```bash
+python -V
+which python
 ```
-@article{jiang2025mimic,
-  title={Mimic In-Context Learning for Multimodal Tasks},
-  author={Jiang, Yuchu and Fu, Jiale and Hao, Chenduo and Hu, Xinting and Peng, Yingzhe and Geng, Xin and Yang, Xu},
-  journal={arXiv preprint arXiv:2504.08851},
-  year={2025}
-}
+
+Notes:
+
+- the packed environment is best suited for similar Linux machines
+- it does not guarantee compatibility across different operating systems, CUDA versions, GPU drivers, or hardware setups
+- run `conda-unpack` once after the first extraction so paths inside the packed environment are fixed
+- this archive is closer to an exact snapshot of the original machine than `environment.yml`
+- for general sharing, keep `environment.yml` as the portable option and use the packed archive only when users need a closer runtime snapshot
+
+## Required Local Resources
+
+This repo expects local model weights and local dataset files.
+Do not hardcode your own server paths into the code when sharing this repo.
+Prefer environment-variable overrides.
+
+Recommended overrides:
+
+```bash
+export COT_MIMIC_RUNNER_PYTHON=/path/to/python
+export COT_MIMIC_CONDA_ACTIVATE='source /path/to/conda.sh && conda activate licv'
+export COT_MIMIC_CACHE_DIR=/path/to/cache
+export COT_MIMIC_RESULT_DIR=/path/to/results
+
+export COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT=/path/to/Qwen2.5-7B-Instruct
+
+export COT_MIMIC_DATASET_SOURCE_GSM8K=/path/to/gsm8k
+export COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA=/path/to/commonsenseqa
+export COT_MIMIC_DATASET_SOURCE_STRATEGYQA=/path/to/strategyqa
 ```
+
+The pipeline controller reads these variables directly.
+If required resources are missing, it now fails with an actionable message instead of a deep traceback.
+
+## Quick Start
+
+Run the default full StrategyQA attention pipeline on one visible GPU:
+
+```bash
+python scripts/run_static_pipeline.py \
+  --model-name qwen2.5-7b-instruct \
+  --dataset strategyqa \
+  --method attn \
+  --devices 0
+```
+
+What this does by default:
+
+1. runs `baseline`
+2. generates self-CoT on `500` training-side samples
+3. extracts a run-local `.pt` vector
+4. runs the requested eval method
+5. for `base`, `ffn`, and `attn`, uses layerwise evaluation unless `--no-layerwise` is given
+
+Useful variants:
+
+```bash
+# single eval instead of layerwise sweep
+python scripts/run_static_pipeline.py \
+  --model-name qwen2.5-7b-instruct \
+  --dataset gsm8k \
+  --method ffn \
+  --devices 0 \
+  --no-layerwise \
+  --single-layer 15
+
+# baseline only
+python scripts/run_static_pipeline.py \
+  --model-name qwen2.5-7b-instruct \
+  --dataset commonsenseqa \
+  --method baseline \
+  --devices 0
+
+# preview commands without executing
+python scripts/run_static_pipeline.py \
+  --model-name qwen2.5-7b-instruct \
+  --dataset strategyqa \
+  --method attn \
+  --dry-run
+```
+
+## Outputs
+
+Each pipeline run writes into:
+
+```text
+results/static_pipeline/<run_tag>/
+```
+
+Typical contents:
+
+- `logs/`
+- `records/`
+- `self_cot_data.json`
+- `self_cot_data_correct_only.json`
+- `<run_tag>.pt`
+- `run_summary.json`
+
+## Skill Usage
+
+The shared Codex skill for this workflow is:
+
+- [skills/pipeline/SKILL.md](/data1/wzy/cot-mimic%20copy/skills/pipeline/SKILL.md)
+
+Use this skill when you want Codex to:
+
+- switch datasets between `gsm8k`, `commonsenseqa`, and `strategyqa`
+- switch methods between `baseline`, `base`, `ffn`, and `attn`
+- update Hydra overrides automatically
+- run the full static pipeline end to end
+- recover from small runtime/config errors during long jobs
+
+## Project Layout
+
+Main directories:
+
+- [src](/data1/wzy/cot-mimic%20copy/src): core pipeline logic, eval entrypoints, vector extraction, model helpers
+- [src/config](/data1/wzy/cot-mimic%20copy/src/config): Hydra config files
+- [src/dataset_utils](/data1/wzy/cot-mimic%20copy/src/dataset_utils): dataset loaders and prompt formatting
+- [scripts](/data1/wzy/cot-mimic%20copy/scripts): automation helpers and layerwise runners
+- [skills](/data1/wzy/cot-mimic%20copy/skills): Codex skills for shared usage
+- [results](/data1/wzy/cot-mimic%20copy/results): generated outputs and evaluation records
+
+## Important Implementation Files
+
+- [src/shift_encoder.py](/data1/wzy/cot-mimic%20copy/src/shift_encoder.py)
+
+  This contains the main shift implementations, including MimIC-style attention shifts and FFN-based variants.
+
+- [src/utils.py](/data1/wzy/cot-mimic%20copy/src/utils.py)
+
+  This centralizes model resolution, runtime device selection, and several shared helpers used by the eval and extraction scripts.
+
+- [scripts/run_static_pipeline.py](/data1/wzy/cot-mimic%20copy/scripts/run_static_pipeline.py)
+
+  This is the recommended shared controller for static experiments. It handles stage ordering, logging, cache setup, dataset/model path overrides, and run summaries.
+
+## Notes for Sharing
+
+If you want other people to use this repo successfully:
+
+- share `environment.yml`
+- share the required local model and dataset paths, or document the matching `COT_MIMIC_*` variables
+- avoid assuming `/home/...`, `/data/share/...`, or your own conda path exists on their machine
+- if you distribute a packed environment, document that it is best for similar Linux machines and CUDA setups
+
+## Current Default Recommendation
+
+If someone is new to this repo, start here:
+
+1. create `licv` from `environment.yml`
+2. set the `COT_MIMIC_MODEL_ROOT_*` and `COT_MIMIC_DATASET_SOURCE_*` variables
+3. run `scripts/run_static_pipeline.py`
+4. use the pipeline skill if working through Codex

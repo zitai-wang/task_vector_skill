@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shlex
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -15,15 +16,44 @@ from typing import List
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SRC_DIR = PROJECT_ROOT / "src"
 DEFAULT_RUNNER_PYTHON = "/home/wzy/anaconda3/envs/licv/bin/python"
+DEFAULT_CONDA_ACTIVATE = "source /home/wzy/anaconda3/bin/activate licv"
+
+
+def _normalize_key(name: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in name.upper())
+
+
+def _env_or_default(name: str, default: str) -> str:
+    return os.environ.get(name, default)
+
+
+def _model_root_env_name(model_name: str) -> str:
+    return f"COT_MIMIC_MODEL_ROOT_{_normalize_key(model_name)}"
+
+
+def _dataset_source_env_name(dataset_name: str) -> str:
+    return f"COT_MIMIC_DATASET_SOURCE_{_normalize_key(dataset_name)}"
 
 MODEL_PATHS = {
-    "qwen2.5-7b-instruct": "/data/share/model_weight/qwen/Qwen2.5-7B-Instruct/",
+    "qwen2.5-7b-instruct": _env_or_default(
+        _model_root_env_name("qwen2.5-7b-instruct"),
+        "/data/share/model_weight/qwen/Qwen2.5-7B-Instruct/",
+    ),
 }
 
 DATASET_SOURCES = {
-    "gsm8k": "/data/share/datasets/gsm8k",
-    "commonsenseqa": "/data/share/commonsenceqa/",
-    "strategyqa": "/data/share/strategy_qa/",
+    "gsm8k": _env_or_default(
+        _dataset_source_env_name("gsm8k"),
+        "/data/share/datasets/gsm8k",
+    ),
+    "commonsenseqa": _env_or_default(
+        _dataset_source_env_name("commonsenseqa"),
+        "/data/share/commonsenceqa/",
+    ),
+    "strategyqa": _env_or_default(
+        _dataset_source_env_name("strategyqa"),
+        "/data/share/strategy_qa/",
+    ),
 }
 
 FULL_EVAL_SAMPLES = {
@@ -180,9 +210,25 @@ def run_command(
             log_handle.write(f"\n===== {stage_label} =====\n")
         log_handle.write("COMMAND:\n")
         log_handle.write(" ".join(command) + "\n\n")
+        shell_exports = []
+        for key in (
+            "CUDA_VISIBLE_DEVICES",
+            "HF_HOME",
+            "HF_DATASETS_CACHE",
+            "TRANSFORMERS_CACHE",
+            "XDG_CACHE_HOME",
+        ):
+            value = env.get(key)
+            if value:
+                shell_exports.append(f"export {key}={shlex.quote(str(value))}")
+        conda_activate = _env_or_default("COT_MIMIC_CONDA_ACTIVATE", DEFAULT_CONDA_ACTIVATE)
+        shell_prefix = " && ".join([*shell_exports, conda_activate])
+        wrapped_command = ["bash", "-lc", f"{shell_prefix} && {shlex.join(command)}"]
+        log_handle.write("WRAPPED_COMMAND:\n")
+        log_handle.write(" ".join(wrapped_command) + "\n\n")
         log_handle.flush()
         subprocess.run(
-            command,
+            wrapped_command,
             cwd=str(PROJECT_ROOT),
             env=env,
             check=True,
@@ -196,13 +242,49 @@ def build_env(args: argparse.Namespace) -> dict:
     env = os.environ.copy()
     if args.devices:
         env["CUDA_VISIBLE_DEVICES"] = str(args.devices)
+    cache_root = Path(
+        env.get("COT_MIMIC_CACHE_DIR", str(PROJECT_ROOT / ".cache"))
+    )
+    hf_home_path = cache_root / "hf"
+    datasets_cache = hf_home_path / "datasets"
+    transformers_cache = hf_home_path / "transformers"
+    for path in (cache_root, hf_home_path, datasets_cache, transformers_cache):
+        path.mkdir(parents=True, exist_ok=True)
+    env.setdefault("HF_HOME", str(hf_home_path))
+    env.setdefault("HF_DATASETS_CACHE", str(datasets_cache))
+    env.setdefault("TRANSFORMERS_CACHE", str(transformers_cache))
+    env.setdefault("XDG_CACHE_HOME", str(cache_root))
     return env
 
 
 def runner_python() -> str:
-    if os.path.exists(DEFAULT_RUNNER_PYTHON):
-        return DEFAULT_RUNNER_PYTHON
+    configured = _env_or_default("COT_MIMIC_RUNNER_PYTHON", DEFAULT_RUNNER_PYTHON)
+    if os.path.exists(configured):
+        return configured
     return sys.executable
+
+
+def validate_runtime_inputs(args: argparse.Namespace) -> None:
+    model_path = MODEL_PATHS[args.model_name]
+    dataset_source = DATASET_SOURCES[args.dataset]
+
+    missing = []
+    if not os.path.exists(model_path):
+        missing.append(
+            f"model root for {args.model_name}: {model_path} "
+            f"(override with {_model_root_env_name(args.model_name)})"
+        )
+    if not os.path.exists(dataset_source):
+        missing.append(
+            f"dataset source for {args.dataset}: {dataset_source} "
+            f"(override with {_dataset_source_env_name(args.dataset)})"
+        )
+
+    if missing:
+        raise FileNotFoundError(
+            "Missing required local resources for the static pipeline:\n- "
+            + "\n- ".join(missing)
+        )
 
 
 def subprocess_devices_value(args: argparse.Namespace) -> str | None:
@@ -377,6 +459,7 @@ def main() -> None:
     args = parse_args()
     if args.method == "baseline":
         args.skip_extract = True
+    validate_runtime_inputs(args)
     paths = build_paths(args)
     env = build_env(args)
 

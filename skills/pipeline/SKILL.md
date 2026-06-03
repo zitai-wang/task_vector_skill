@@ -15,6 +15,7 @@ Default research setup:
 - generate stage sample count: `500`
 - eval stage sample count: full query set
 - runtime python environment: `licv`
+- shared environment file: `environment.yml`
 
 Default pipeline:
 1. run `baseline` eval first as the no-vector reference
@@ -67,39 +68,66 @@ More concretely:
 
 ## Model and data paths
 
-Known model path for the default setup:
+Portability rule:
+- this skill is written for shared use, so hardcoded server paths are only fallback defaults
+- prefer environment-variable overrides before editing source files
+- Codex should treat missing local paths as a configuration issue, not a research failure
+
+Recommended runtime overrides:
+- `COT_MIMIC_RUNNER_PYTHON`
+- `COT_MIMIC_CONDA_ACTIVATE`
+- `COT_MIMIC_CACHE_DIR`
+- `COT_MIMIC_RESULT_DIR`
+- model-specific roots such as `COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT`
+- dataset-specific roots such as `COT_MIMIC_DATASET_SOURCE_GSM8K`, `COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA`, `COT_MIMIC_DATASET_SOURCE_STRATEGYQA`
+
+Author-machine fallback for the default setup:
 - `model_name=qwen2.5-7b-instruct`
-- local model path:
+- fallback local model path:
   - `/data/share/model_weight/qwen/Qwen2.5-7B-Instruct/`
-- python path for running the pipeline:
-  - `/home/wzy/anaconda3/envs/licv/bin/python`
+- fallback python path for running the pipeline:
+  - use the interpreter from `conda activate licv`
 
 Known dataset path for GSM8K:
 - dataset file: `src/dataset_utils/gsm8k.py`
-- default source path in code:
+- fallback source path in code:
   - `/data/share/datasets/gsm8k`
 - full eval size:
   - `1319`
 
 CommonsenseQA path:
 - dataset file: `src/dataset_utils/commonsenceqa.py`
-- local source path:
+- fallback local source path:
   - `/data/share/commonsenceqa/`
 - full eval size:
   - `1221`
 
 StrategyQA path:
 - dataset file: `src/dataset_utils/strategyqa.py`
-- local source path:
+- fallback local source path:
   - `/data/share/strategy_qa/`
 - full eval size:
   - `687`
 
+Suggested setup for a new machine:
+
+```bash
+conda env create -f environment.yml
+conda activate licv
+export COT_MIMIC_RUNNER_PYTHON=/path/to/python
+export COT_MIMIC_CONDA_ACTIVATE='source /path/to/conda.sh && conda activate licv'
+export COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT=/path/to/Qwen2.5-7B-Instruct
+export COT_MIMIC_DATASET_SOURCE_GSM8K=/path/to/gsm8k
+export COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA=/path/to/commonsenseqa
+export COT_MIMIC_DATASET_SOURCE_STRATEGYQA=/path/to/strategyqa
+```
+
 When running the full pipeline, Codex should check and set:
 - `model_name`
-- model root implied by `src/utils.py`
+- model root implied by `src/utils.py` or the matching `COT_MIMIC_MODEL_ROOT_*` override
 - `data.name`
 - `data.source` when the dataset uses a local source path
+- runtime python / conda activation when the local environment differs from the author's machine
 
 Default automation policy:
 - do not ask the user to manually edit yaml files
@@ -496,7 +524,8 @@ Script location policy:
 python src/generate_self_cot.py \
   model_name=qwen2.5-7b-instruct \
   data.name=gsm8k \
-  output_path=/data1/wzy/cot-mimic/output/gsm8k/self_cot_data.json
+  ++data.source=${COT_MIMIC_DATASET_SOURCE_GSM8K} \
+  output_path=results/example_runs/gsm8k/self_cot_data.json
 ```
 
 ### Extract
@@ -506,22 +535,30 @@ python src/extract_cot_vector.py \
   --config-name extract_cot_vector \
   model_name=qwen2.5-7b-instruct \
   data.name=gsm8k \
-  data.self_cot_path=/data1/wzy/cot-mimic/output/gsm8k/self_cot_data_correct_only.json \
-  output_path=/data1/wzy/cot-mimic/results/static_pipeline/qwen2.5-7b-instruct_gsm8k_20260527_120000/qwen2.5-7b-instruct_gsm8k_20260527_120000.pt
+  ++data.source=${COT_MIMIC_DATASET_SOURCE_GSM8K} \
+  data.self_cot_path=results/example_runs/gsm8k/self_cot_data_correct_only.json \
+  output_path=results/static_pipeline/example_gsm8k_run/example_gsm8k_run.pt
 ```
 
 ### Eval one run
 
 ```bash
-python src/eval.py \
+python src/eval_licv.py \
+  --config-name eval_ffn \
   model_name=qwen2.5-7b-instruct \
   data.name=gsm8k \
+  ++data.source=${COT_MIMIC_DATASET_SOURCE_GSM8K} \
   use_extracted_cot_vector=True \
   use_extracted_cot_vector_type=licv \
-  extracted_cot_vector_path=/data1/wzy/cot-mimic/results/static_pipeline/qwen2.5-7b-instruct_gsm8k_20260527_120000/qwen2.5-7b-instruct_gsm8k_20260527_120000.pt \
+  extracted_cot_vector_path=results/static_pipeline/example_gsm8k_run/example_gsm8k_run.pt \
   eval_mode=EVAL_WITH_COT_VECTOR_DIRECT_Q \
   only_shift_at_layer=15
 ```
+
+Notes:
+- these examples intentionally use repo-relative output paths so they can be copied to another machine without editing author-specific directories
+- `${COT_MIMIC_DATASET_SOURCE_*}` stands for the local dataset root on the target machine
+- if a user does not have these environment variables set, Codex should either set `++data.source=/path/to/...` directly or use `scripts/run_static_pipeline.py`
 
 ### Layerwise eval
 
@@ -596,10 +633,11 @@ Default behavior for ambiguous requests:
 When the pipeline fails, Codex should not stop at the first traceback. It should inspect the error and try the smallest safe fix first.
 
 Preferred fixes:
-- if the wrong python environment is used, switch to `/home/wzy/anaconda3/envs/licv/bin/python`
+- if the wrong python environment is used, first try `COT_MIMIC_RUNNER_PYTHON` or `COT_MIMIC_CONDA_ACTIVATE` instead of editing code
 - if a deleted optional module such as `llava_ov_model_wrapper` is still imported by unrelated code, remove the hard dependency or make it a lazy import
 - if a Hydra override uses the wrong prefix, fix the override and rerun
 - if `CUDA_VISIBLE_DEVICES` is set, pass logical GPU indices like `devices=0` to subprocesses rather than the original physical GPU id
+- if a required model or dataset path is missing, set the matching `COT_MIMIC_MODEL_ROOT_*` or `COT_MIMIC_DATASET_SOURCE_*` override
 - if a filename collides, generate a timestamped new filename and continue
 
 For this default static pipeline:
