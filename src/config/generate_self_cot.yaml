@@ -1,0 +1,28 @@
+defaults:
+  - exp_settings
+  - _self_
+
+model_name: "qwen2.5-7b-instruct"
+dtype: "torch.float16"
+devices: 2
+
+data:
+  name: gsm8k
+  source: /data/share/datasets/gsm8k
+  num_query_samples: 500
+  seed: 42
+
+output_path: "/data1/wzy/cot-mimic/output/gsm8k/self_cot_data.json"
+max_samples: 500
+
+batch_size: 8
+iterations: null
+max_skip_oom: 0
+
+generation_args:
+  num_beams: 1
+  max_new_tokens: 512
+  length_penalty: 0.0
+  do_sample: False
+  temperature: 0.0
+  top_p: 1.0

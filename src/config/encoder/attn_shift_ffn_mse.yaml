@@ -1,0 +1,7 @@
+model_strategy: Strategy.LM_LOSS | Strategy.LAYER_WISE_MSE
+
+cls:
+  _target_: src.shift_encoder.AttnFFNShift
+  attn_strategy: ShiftStrategy.VECTOR_SHIFT | ShiftStrategy.LEARNABLE_SCALE
+  ffn_strategy: ShiftStrategy.RECORD_HIDDEN_STATES
+

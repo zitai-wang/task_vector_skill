@@ -1,0 +1,254 @@
+[
+  {
+    "layer": 7,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l7-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l7-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l7-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l7-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.25,
+    "num_records": 304
+  },
+  {
+    "layer": 4,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l4-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l4-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l4-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l4-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24671052631578946,
+    "num_records": 304
+  },
+  {
+    "layer": 19,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l19-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l19-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l19-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l19-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24671052631578946,
+    "num_records": 304
+  },
+  {
+    "layer": 0,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l0-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l0-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l0-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l0-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24342105263157895,
+    "num_records": 304
+  },
+  {
+    "layer": 6,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l6-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l6-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l6-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l6-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24342105263157895,
+    "num_records": 304
+  },
+  {
+    "layer": 9,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l9-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l9-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l9-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l9-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24342105263157895,
+    "num_records": 304
+  },
+  {
+    "layer": 16,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l16-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l16-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l16-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l16-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24342105263157895,
+    "num_records": 304
+  },
+  {
+    "layer": 22,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l22-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l22-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l22-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l22-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24342105263157895,
+    "num_records": 304
+  },
+  {
+    "layer": 5,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l5-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l5-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l5-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l5-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24013157894736842,
+    "num_records": 304
+  },
+  {
+    "layer": 23,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l23-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l23-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l23-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l23-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24013157894736842,
+    "num_records": 304
+  },
+  {
+    "layer": 25,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l25-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l25-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l25-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l25-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24013157894736842,
+    "num_records": 304
+  },
+  {
+    "layer": 27,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l27-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l27-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l27-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l27-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.24013157894736842,
+    "num_records": 304
+  },
+  {
+    "layer": 8,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l8-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l8-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l8-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l8-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23684210526315788,
+    "num_records": 304
+  },
+  {
+    "layer": 15,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l15-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l15-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l15-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l15-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23684210526315788,
+    "num_records": 304
+  },
+  {
+    "layer": 18,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l18-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l18-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l18-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l18-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23684210526315788,
+    "num_records": 304
+  },
+  {
+    "layer": 20,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l20-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l20-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l20-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l20-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23684210526315788,
+    "num_records": 304
+  },
+  {
+    "layer": 26,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l26-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l26-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l26-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l26-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23684210526315788,
+    "num_records": 304
+  },
+  {
+    "layer": 1,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l1-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l1-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l1-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l1-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23355263157894737,
+    "num_records": 304
+  },
+  {
+    "layer": 10,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l10-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l10-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l10-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l10-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23355263157894737,
+    "num_records": 304
+  },
+  {
+    "layer": 17,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l17-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l17-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l17-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l17-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23355263157894737,
+    "num_records": 304
+  },
+  {
+    "layer": 21,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l21-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l21-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l21-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l21-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23355263157894737,
+    "num_records": 304
+  },
+  {
+    "layer": 24,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l24-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l24-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l24-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l24-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23355263157894737,
+    "num_records": 304
+  },
+  {
+    "layer": 3,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l3-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l3-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l3-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l3-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23026315789473684,
+    "num_records": 304
+  },
+  {
+    "layer": 12,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l12-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l12-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l12-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l12-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23026315789473684,
+    "num_records": 304
+  },
+  {
+    "layer": 13,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l13-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l13-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l13-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l13-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.23026315789473684,
+    "num_records": 304
+  },
+  {
+    "layer": 2,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l2-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l2-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l2-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l2-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.22697368421052633,
+    "num_records": 304
+  },
+  {
+    "layer": 14,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l14-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l14-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l14-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l14-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.22697368421052633,
+    "num_records": 304
+  },
+  {
+    "layer": 11,
+    "runname": "mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l11-qwen2.5-vl-7b-instruct-mathvision-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l11-qwen2.5-vl-7b-instruct-mathvision-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l11-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvision-qwen2.5-vl-mimic-seq2048-lr1e3-l11-qwen2.5-vl-7b-instruct-mathvision-500/epoch-5.json",
+    "accuracy": 0.21052631578947367,
+    "num_records": 304
+  }
+]

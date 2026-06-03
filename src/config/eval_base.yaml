@@ -1,0 +1,62 @@
+#专门测试baseline
+defaults:
+  - _self_
+  # - exp_settings
+
+multi_head_attn_strategy: True
+mode: "extracted_cot_vector" # "generate_self_cot", extracted_cot_vector
+output_path: "/data1/wzy/cot-mimic/results/self_cot/gsm8k_new"
+ckpt_path: null
+max_samples: 2000
+model_name: qwen2.5-vl-7b-instruct
+devices: 2
+dtype: torch.float16
+data:
+  # name: "math_dataset"
+  name: "strategyqa"
+  is_icl: False
+  num_query_samples: 10000
+  seed: 42
+  num_shot: 0
+  # subset: "testmini" # easy, hard, null
+  num_workers: 5
+
+resume: True
+query_set: ${data.name}
+query_set_size: null # the number of samples to evaluate. if set to null, all samples will be evaluated.
+support_set: ${data.name}
+batch_size: 16
+iterations: null
+max_skip_oom: 0
+use_cot: False
+generation_args:
+  num_beams: 1
+  max_new_tokens: 512
+  length_penalty: 0.0
+  do_sample: False
+  temperature: 0.0
+  top_p: 1.0
+
+eval_mode: EVAL_WITH_COT_VECTOR_DIRECT_Q 
+
+use_extracted_cot_vector: True 
+#使用base模式
+use_extracted_cot_vector_type: "licv"
+extracted_cot_vector_path: "/data1/wzy/cot-mimic/results/average_cot_vectors/qwen2.5-math-7b_strategyqa_avg_cot_vector_mimic_withhs.pt"
+static_shift_scale: 1.0
+
+
+use_static_mu: True # Set to True to use a static mu value for extracted CoT vectors
+static_mu_value: ${static_shift_scale}  # The static mu value to use when use_static_mu is True
+
+# use_base_vector: False  #licv version
+use_base_vector: True  #base version
+
+only_shift_at_layer: 0 # 第几层开始注入，0表示从第0层开始注入
+
+layer_eval_mode: "single_layer" # Default mode
+
+model_layers: 28 # Total number of layers in your model, e.g., 32 for llama
+start_layer: 0   # Inclusive starting layer index for the loop
+end_layer: 28    # Exclusive ending layer index for the loop (e.g., 32 means layers 0-31)
+shift_layers_combinations: [[3,7]]

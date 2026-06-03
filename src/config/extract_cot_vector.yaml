@@ -1,0 +1,35 @@
+defaults:
+  - _self_
+  - encoder: mimic
+  - peft: mimic
+
+output_path: "/data1/wzy/cot-mimic/results/average_cot_vectors/qwen2.5-7b-instruct_gsm8k_avg_cot_vector_mimic.pt"
+
+batch_size: 1
+model_name: qwen2.5-7b-instruct
+dtype: torch.float16
+
+memory:
+  enable_gradient_checkpointing: True
+  use_flash_attention: True  # 如果支持
+  quantization: 4bit  # 添加量化配置
+
+encoder:
+  cls:
+    _target_: src.shift_encoder.AttnApproximator 
+    attn_strategy: ShiftStrategy.VECTOR_SHIFT | ShiftStrategy.RECORD_HIDDEN_STATES | ShiftStrategy.MULTI_HEAD | ShiftStrategy.RECORD_RAW_ATTN_OUTPUTS
+    ffn_strategy: ShiftStrategy.RECORD_HIDDEN_STATES
+
+data:
+  name: "gsm8k"
+  num_query_samples: 500
+  seed: 42
+  # training_mode: TRAIN_STUDENT_DIRECT_Q
+  training_mode: TRAIN_STUDENT_DIRECT_Q_SELF_COT
+
+  max_seq_len: 512
+  use_self_cot: True
+  # subset: "hard" # easy, hard, null
+
+  source: "/data/share/datasets/gsm8k"
+  self_cot_path: "/data1/wzy/cot-mimic/output/gsm8k/self_cot_data_correct_only.json"

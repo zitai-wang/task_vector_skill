@@ -1,0 +1,20 @@
+[
+  {
+    "layer": 5,
+    "runname": "mmmu-qwen2.5-vl-mimic-mathvisionstyle-seq1536-skipoom-v3-l5-qwen2.5-vl-7b-instruct-mmmu-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mmmu-qwen2.5-vl-mimic-mathvisionstyle-seq1536-skipoom-v3-l5-qwen2.5-vl-7b-instruct-mmmu-500",
+    "latest_epoch_dir": null,
+    "record_path": null,
+    "accuracy": null,
+    "num_records": null
+  },
+  {
+    "layer": 6,
+    "runname": "mmmu-qwen2.5-vl-mimic-mathvisionstyle-seq1536-skipoom-v3-l6-qwen2.5-vl-7b-instruct-mmmu-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mmmu-qwen2.5-vl-mimic-mathvisionstyle-seq1536-skipoom-v3-l6-qwen2.5-vl-7b-instruct-mmmu-500",
+    "latest_epoch_dir": null,
+    "record_path": null,
+    "accuracy": null,
+    "num_records": null
+  }
+]

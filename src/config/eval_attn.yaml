@@ -1,0 +1,59 @@
+defaults:
+  - _self_
+  # - exp_settings
+
+multi_head_attn_strategy: True
+mode: "extracted_cot_vector" # "generate_self_cot", extracted_cot_vector
+ckpt_path: null
+max_samples: 2000
+model_name: qwen2.5-vl-7b-instruct
+devices: 2
+dtype: torch.float16
+data:
+  # name: "math_dataset"
+  name: "mathvista"
+  is_icl: False
+  num_query_samples: 10000
+  seed: 42
+  num_shot: 0
+  # subset: "testmini" # easy, hard, null
+  num_workers: 5
+
+resume: True
+query_set: ${data.name}
+query_set_size: null # the number of samples to evaluate. if set to null, all samples will be evaluated.
+support_set: ${data.name}
+# ckpt_path: "/data1/wzy/cot-mimic/results/average_cot_vectors/llama-3.1-8b-instruct_gsm8k_avg_cot_vector_mimic_withhs.pt"
+batch_size: 2
+iterations: null
+max_skip_oom: 0
+use_cot: False
+generation_args:
+  num_beams: 1
+  max_new_tokens: 4096
+  length_penalty: 0.0
+  do_sample: False
+  temperature: 0.0
+  top_p: 1.0
+
+eval_mode: EVAL_WITH_COT_VECTOR_DIRECT_Q # 初始选择一种评估模式
+
+# 使用mimic(attn)方式
+use_extracted_cot_vector: True 
+use_extracted_cot_vector_type: "mimic"
+extracted_cot_vector_path: "/data1/wzy/cot-mimic/results/average_cot_vectors/qwen2.5-vl-7b-instruct_mathvista_correct_only_avg_cot_vector_mimic_fix5_bs1_20260322.pt"
+
+static_shift_scale: 1.0
+
+use_static_mu: True 
+static_mu_value: ${static_shift_scale}  
+use_base_vector: False  
+
+only_shift_at_layer: 0 
+
+layer_eval_mode: "single_layer" # Default mode
+
+model_layers: 28 # Total number of layers in your model, e.g., 32 for llama
+start_layer: 0   # Inclusive starting layer index for the loop
+end_layer: 28    # Exclusive ending layer index for the loop (e.g., 32 
+shift_layers_combinations: [[3,7]]

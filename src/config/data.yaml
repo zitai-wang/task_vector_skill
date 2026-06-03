@@ -1,0 +1,9 @@
+
+data:
+  is_icl: False # only automatically set in eval_old.py
+  seed: 3407
+  num_query_samples: 500
+  name: "math_dataset"
+  num_shot: 0
+  num_workers: 5
+  num_image_in_query: 1 # how many images in query input?

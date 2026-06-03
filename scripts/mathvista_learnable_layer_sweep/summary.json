@@ -1,0 +1,254 @@
+[
+  {
+    "layer": 9,
+    "runname": "mathvista-qwen2.5-vl-mimic-l9-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l9-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l9-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l9-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.686,
+    "num_records": 500
+  },
+  {
+    "layer": 7,
+    "runname": "mathvista-qwen2.5-vl-mimic-l7-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l7-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l7-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l7-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.67,
+    "num_records": 500
+  },
+  {
+    "layer": 0,
+    "runname": "mathvista-qwen2.5-vl-mimic-l0-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l0-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l0-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l0-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.658,
+    "num_records": 500
+  },
+  {
+    "layer": 23,
+    "runname": "mathvista-qwen2.5-vl-mimic-l23-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l23-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l23-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l23-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.64,
+    "num_records": 500
+  },
+  {
+    "layer": 4,
+    "runname": "mathvista-qwen2.5-vl-mimic-l4-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l4-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l4-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l4-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.636,
+    "num_records": 500
+  },
+  {
+    "layer": 27,
+    "runname": "mathvista-qwen2.5-vl-mimic-l27-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l27-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l27-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l27-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.634,
+    "num_records": 500
+  },
+  {
+    "layer": 1,
+    "runname": "mathvista-qwen2.5-vl-mimic-l1-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l1-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l1-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l1-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.63,
+    "num_records": 500
+  },
+  {
+    "layer": 3,
+    "runname": "mathvista-qwen2.5-vl-mimic-l3-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l3-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l3-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l3-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.63,
+    "num_records": 500
+  },
+  {
+    "layer": 19,
+    "runname": "mathvista-qwen2.5-vl-mimic-l19-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l19-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l19-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l19-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.626,
+    "num_records": 500
+  },
+  {
+    "layer": 24,
+    "runname": "mathvista-qwen2.5-vl-mimic-l24-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l24-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l24-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l24-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.624,
+    "num_records": 500
+  },
+  {
+    "layer": 26,
+    "runname": "mathvista-qwen2.5-vl-mimic-l26-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l26-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l26-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l26-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.624,
+    "num_records": 500
+  },
+  {
+    "layer": 2,
+    "runname": "mathvista-qwen2.5-vl-mimic-l2-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l2-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l2-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l2-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.618,
+    "num_records": 500
+  },
+  {
+    "layer": 22,
+    "runname": "mathvista-qwen2.5-vl-mimic-l22-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l22-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l22-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l22-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.618,
+    "num_records": 500
+  },
+  {
+    "layer": 5,
+    "runname": "mathvista-qwen2.5-vl-mimic-l5-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l5-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l5-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l5-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.616,
+    "num_records": 500
+  },
+  {
+    "layer": 15,
+    "runname": "mathvista-qwen2.5-vl-mimic-l15-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l15-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l15-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l15-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.614,
+    "num_records": 500
+  },
+  {
+    "layer": 17,
+    "runname": "mathvista-qwen2.5-vl-mimic-l17-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l17-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l17-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l17-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.614,
+    "num_records": 500
+  },
+  {
+    "layer": 21,
+    "runname": "mathvista-qwen2.5-vl-mimic-l21-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l21-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l21-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l21-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.614,
+    "num_records": 500
+  },
+  {
+    "layer": 25,
+    "runname": "mathvista-qwen2.5-vl-mimic-l25-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l25-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l25-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l25-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.612,
+    "num_records": 500
+  },
+  {
+    "layer": 18,
+    "runname": "mathvista-qwen2.5-vl-mimic-l18-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l18-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l18-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l18-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.604,
+    "num_records": 500
+  },
+  {
+    "layer": 20,
+    "runname": "mathvista-qwen2.5-vl-mimic-l20-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l20-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l20-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l20-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.604,
+    "num_records": 500
+  },
+  {
+    "layer": 16,
+    "runname": "mathvista-qwen2.5-vl-mimic-l16-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l16-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l16-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l16-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.594,
+    "num_records": 500
+  },
+  {
+    "layer": 8,
+    "runname": "mathvista-qwen2.5-vl-mimic-l8-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l8-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l8-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l8-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.582,
+    "num_records": 500
+  },
+  {
+    "layer": 11,
+    "runname": "mathvista-qwen2.5-vl-mimic-l11-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l11-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l11-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l11-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.578,
+    "num_records": 500
+  },
+  {
+    "layer": 10,
+    "runname": "mathvista-qwen2.5-vl-mimic-l10-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l10-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l10-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l10-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.562,
+    "num_records": 500
+  },
+  {
+    "layer": 6,
+    "runname": "mathvista-qwen2.5-vl-mimic-l6-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l6-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l6-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l6-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.554,
+    "num_records": 500
+  },
+  {
+    "layer": 14,
+    "runname": "mathvista-qwen2.5-vl-mimic-l14-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l14-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l14-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l14-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.498,
+    "num_records": 500
+  },
+  {
+    "layer": 12,
+    "runname": "mathvista-qwen2.5-vl-mimic-l12-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l12-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l12-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l12-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.47,
+    "num_records": 500
+  },
+  {
+    "layer": 13,
+    "runname": "mathvista-qwen2.5-vl-mimic-l13-qwen2.5-vl-7b-instruct-mathvista-500",
+    "ckpt_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l13-qwen2.5-vl-7b-instruct-mathvista-500",
+    "latest_epoch_dir": "/data1/wzy/cot-mimic/results/ckpt/mathvista-qwen2.5-vl-mimic-l13-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5",
+    "record_path": "/data1/wzy/cot-mimic/results/record/mathvista-qwen2.5-vl-mimic-l13-qwen2.5-vl-7b-instruct-mathvista-500/epoch-5.json",
+    "accuracy": 0.466,
+    "num_records": 500
+  }
+]
