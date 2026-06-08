@@ -69,9 +69,19 @@ More concretely:
 ## Model and data paths
 
 Portability rule:
-- this skill is written for shared use, so hardcoded server paths are only fallback defaults
+- this skill is written for shared use, so do not rely on author-machine paths as the normal setup
 - prefer environment-variable overrides before editing source files
 - Codex should treat missing local paths as a configuration issue, not a research failure
+
+Current shared support:
+- model: `qwen2.5-7b-instruct`
+- datasets: `gsm8k`, `commonsenseqa`, `strategyqa`
+
+What users need to do after cloning this repo:
+- prepare the `qwen2.5-7b-instruct` weights on their own machine
+- prepare local copies of `gsm8k`, `commonsenseqa`, and `strategyqa` if they want to run those datasets
+- replace every example `/path/to/...` value with a real local path on their machine
+- use environment variables first instead of editing hardcoded paths into the repo
 
 Recommended runtime overrides:
 - `COT_MIMIC_RUNNER_PYTHON`
@@ -81,31 +91,33 @@ Recommended runtime overrides:
 - model-specific roots such as `COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT`
 - dataset-specific roots such as `COT_MIMIC_DATASET_SOURCE_GSM8K`, `COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA`, `COT_MIMIC_DATASET_SOURCE_STRATEGYQA`
 
-Author-machine fallback for the default setup:
+Default shared setup:
 - `model_name=qwen2.5-7b-instruct`
-- fallback local model path:
-  - `/data/share/model_weight/qwen/Qwen2.5-7B-Instruct/`
-- fallback python path for running the pipeline:
+- runtime environment:
   - use the interpreter from `conda activate licv`
+- model path:
+  - should come from `COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT` on the user's machine
+- dataset paths:
+  - should come from the matching `COT_MIMIC_DATASET_SOURCE_*` variables on the user's machine
 
-Known dataset path for GSM8K:
+GSM8K:
 - dataset file: `src/dataset_utils/gsm8k.py`
-- fallback source path in code:
-  - `/data/share/datasets/gsm8k`
+- expected override:
+  - `COT_MIMIC_DATASET_SOURCE_GSM8K=/path/to/gsm8k`
 - full eval size:
   - `1319`
 
-CommonsenseQA path:
+CommonsenseQA:
 - dataset file: `src/dataset_utils/commonsenceqa.py`
-- fallback local source path:
-  - `/data/share/commonsenceqa/`
+- expected override:
+  - `COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA=/path/to/commonsenseqa`
 - full eval size:
   - `1221`
 
-StrategyQA path:
+StrategyQA:
 - dataset file: `src/dataset_utils/strategyqa.py`
-- fallback local source path:
-  - `/data/share/strategy_qa/`
+- expected override:
+  - `COT_MIMIC_DATASET_SOURCE_STRATEGYQA=/path/to/strategyqa`
 - full eval size:
   - `687`
 
@@ -121,6 +133,11 @@ export COT_MIMIC_DATASET_SOURCE_GSM8K=/path/to/gsm8k
 export COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA=/path/to/commonsenseqa
 export COT_MIMIC_DATASET_SOURCE_STRATEGYQA=/path/to/strategyqa
 ```
+
+Important:
+- the `/path/to/...` values above are placeholders
+- after cloning the repo, users should replace them with the real local paths on their own machine
+- if these variables are not set, Codex should help the user set them or pass the corresponding local paths directly
 
 When running the full pipeline, Codex should check and set:
 - `model_name`

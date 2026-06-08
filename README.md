@@ -40,63 +40,43 @@ conda env create -f environment.yml
 conda activate licv
 ```
 
-Important:
+What `environment.yml` is intended to cover:
 
-- this should produce a compatible environment, not a byte-for-byte clone of the author's machine
-- CUDA, driver, OS, and local model installation still matter
-- if you need a closer machine snapshot, you can distribute a `conda-pack` archive in addition to `environment.yml`
+- the default `licv` Conda environment name
+- the core runtime for the shared static pipeline
+- PyTorch `2.5.1` with CUDA `12.1`
+- the main Hugging Face stack such as `transformers`, `datasets`, `accelerate`, and `peft`
+- config and evaluation packages such as `hydra-core`, `omegaconf`, and `evaluate`
+- repo-specific utility dependencies such as `deepspeed`, `sentencepiece`, `safetensors`, `bytecode`, `xxhash`, and `python-Levenshtein`
 
-### Using the Packed `licv` Environment
-
-If `artifacts/licv-conda-pack.tar.gz` has already been generated, it is a packed snapshot of the `licv` Conda environment.
-
-It is not used by opening the archive directly. Instead, unpack it into a target directory and activate it from there:
-
-```bash
-mkdir -p /path/to/licv
-tar -xzf artifacts/licv-conda-pack.tar.gz -C /path/to/licv
-source /path/to/licv/bin/activate
-conda-unpack
-```
-
-After that, verify the environment:
-
-```bash
-python -V
-which python
-```
-
-Notes:
-
-- the packed environment is best suited for similar Linux machines
-- it does not guarantee compatibility across different operating systems, CUDA versions, GPU drivers, or hardware setups
-- run `conda-unpack` once after the first extraction so paths inside the packed environment are fixed
-- this archive is closer to an exact snapshot of the original machine than `environment.yml`
-- for general sharing, keep `environment.yml` as the portable option and use the packed archive only when users need a closer runtime snapshot
 
 ## Required Local Resources
 
-This repo expects local model weights and local dataset files.
-Do not hardcode your own server paths into the code when sharing this repo.
-Prefer environment-variable overrides.
+The current shared default setup in this repo only supports:
 
-Recommended overrides:
+- model: `qwen2.5-7b-instruct`
+- datasets: `strategyqa`, `commonsenseqa`, `gsm8k`
 
-```bash
-export COT_MIMIC_RUNNER_PYTHON=/path/to/python
-export COT_MIMIC_CONDA_ACTIVATE='source /path/to/conda.sh && conda activate licv'
-export COT_MIMIC_CACHE_DIR=/path/to/cache
-export COT_MIMIC_RESULT_DIR=/path/to/results
+This means anyone using the shared static pipeline should prepare:
 
-export COT_MIMIC_MODEL_ROOT_QWEN2_5_7B_INSTRUCT=/path/to/Qwen2.5-7B-Instruct
+- a local path to the `qwen2.5-7b-instruct` model weights
+- a local path to the `strategyqa` dataset
+- a local path to the `commonsenseqa` dataset
+- a local path to the `gsm8k` dataset
 
-export COT_MIMIC_DATASET_SOURCE_GSM8K=/path/to/gsm8k
-export COT_MIMIC_DATASET_SOURCE_COMMONSENSEQA=/path/to/commonsenseqa
-export COT_MIMIC_DATASET_SOURCE_STRATEGYQA=/path/to/strategyqa
-```
+These local paths are machine-specific.
+When sharing this repo, do not keep your own server paths hardcoded in commands or configs.
+Instead, replace the example paths below with the actual paths on your own machine.
 
-The pipeline controller reads these variables directly.
-If required resources are missing, it now fails with an actionable message instead of a deep traceback.
+
+## Method Guide
+
+This repo uses four method names during evaluation:
+
+- `baseline`: no extracted CoT vector is injected. This is the plain reference run.
+- `base`: inject a static hidden-state style vector with [src/eval_base.py](/data1/wzy/cot-mimic%20copy/src/eval_base.py). In practice, this is the simplest "add the extracted vector back into the model" setting.
+- `ffn`: inject the extracted vector through the FFN / MLP path with [src/eval_licv.py](/data1/wzy/cot-mimic%20copy/src/eval_licv.py). In this repo, this corresponds to the LIVE-style / LICV-style FFN shift path.
+- `attn`: inject the extracted vector through the attention path with [src/eval_mimic.py](/data1/wzy/cot-mimic%20copy/src/eval_mimic.py). In this repo, this is the MimIC-style attention shift path.
 
 ## Quick Start
 
@@ -176,6 +156,45 @@ Use this skill when you want Codex to:
 - run the full static pipeline end to end
 - recover from small runtime/config errors during long jobs
 
+What this skill does for you:
+
+- chooses the matching eval entrypoint automatically
+- keeps the recommended order `baseline -> generate -> extract -> eval`
+- uses the method-matched layerwise runner for `base`, `ffn`, and `attn`
+- updates `model_name`, `data.name`, `self_cot_path`, and `extracted_cot_vector_path` when the task is clear
+
+How to use the skill with Codex:
+
+- mention the pipeline skill and state the dataset, model, and method you want
+- for full runs, ask for the whole pipeline from `baseline` to extraction and evaluation
+- for analysis-only runs, ask for a single method or a single layer
+- if you already have `self_cot_data_correct_only.json` or a `.pt` vector, say so and Codex can skip earlier stages
+
+Example prompts for Codex:
+
+```text
+Use the pipeline skill to run the full static pipeline on strategyqa with qwen2.5-7b-instruct and method attn.
+```
+
+```text
+Use the pipeline skill to run baseline and then an ffn layerwise sweep on gsm8k.
+```
+
+```text
+Use the pipeline skill to evaluate the existing extracted vector at results/static_pipeline/my_run/my_run.pt with method base on layer 15 only.
+```
+
+```text
+Use the pipeline skill to switch the current setup from commonsenseqa + ffn to strategyqa + attn and keep the same model.
+```
+
+A practical mapping from user intent to method:
+
+- choose `baseline` when you want the no-vector reference
+- choose `base` when you want the simplest direct vector injection baseline
+- choose `ffn` when you want FFN / MLP-path injection
+- choose `attn` when you want attention-path injection
+
 ## Project Layout
 
 Main directories:
@@ -201,20 +220,3 @@ Main directories:
 
   This is the recommended shared controller for static experiments. It handles stage ordering, logging, cache setup, dataset/model path overrides, and run summaries.
 
-## Notes for Sharing
-
-If you want other people to use this repo successfully:
-
-- share `environment.yml`
-- share the required local model and dataset paths, or document the matching `COT_MIMIC_*` variables
-- avoid assuming `/home/...`, `/data/share/...`, or your own conda path exists on their machine
-- if you distribute a packed environment, document that it is best for similar Linux machines and CUDA setups
-
-## Current Default Recommendation
-
-If someone is new to this repo, start here:
-
-1. create `licv` from `environment.yml`
-2. set the `COT_MIMIC_MODEL_ROOT_*` and `COT_MIMIC_DATASET_SOURCE_*` variables
-3. run `scripts/run_static_pipeline.py`
-4. use the pipeline skill if working through Codex
